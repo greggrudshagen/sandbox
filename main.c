@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
     fsm_main();
 #endif
 
-#if 0
+#if 1
     rc = BitsMain();
 #endif
 
