@@ -5,6 +5,7 @@
 #include "arrarys.h"
 #include "fsm_main.h"
 #include "bits.h"
+#include "linklist.h"
 
 
 int main(int argc, char *argv[])
@@ -50,10 +51,13 @@ int main(int argc, char *argv[])
     fsm_main();
 #endif
 
-#if 1
+#if 0
     rc = BitsMain();
 #endif
 
+#if 1
+    rc = linklist_main();
+#endif
 
     return rc;
 }
