@@ -1,7 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "linklist.h"
-#include <stdlib.h>
 
 typedef struct node
 {
@@ -15,23 +15,14 @@ typedef void (*callback)(node* data);
 /*
  * return the number of elements in the list
  */
-int count(node *head)
+int count(node * const head)
 {
-#if 0
-    node *cursor = head;
     int c = 0;
-    while(cursor != NULL)
-    {
-        c++;
-        cursor = cursor->next;
-    }
-#else
-    int c = 0;
-    for (node *p = head; NULL != p; p = p->next)
+    for (node *itr = head; NULL != itr; itr = itr->next)
     {
         c++;
     }
-#endif
+
     return c;
 }
 
@@ -41,10 +32,10 @@ int count(node *head)
  *
  * return the newly created node
  */
-node* create(int data, node* next)
+node* create(int const data, node* const next)
 {
-    node* new_node = (node*)malloc(sizeof(node));
-    if(new_node == NULL)
+    node* const new_node = (node*)malloc(sizeof(node));
+    if (NULL == new_node)
     {
         printf("Error creating a new node.\n");
         exit(0);
@@ -60,113 +51,93 @@ node* create(int data, node* next)
  */
 node* prepend(node* head, int data)
 {
-    node* new_node = create(data, head);
-    head = new_node;
-    return head;
+    return create(data, head);
 }
 
 /*
  *  add a new node at the end of the list
  */
-node* append(node* head, int data)
+node* append(node* const head, int data)
 {
     if (NULL == head)
     {
         return prepend(head, data);
     }
 
-    /* go to the last node */
-    node *cursor = head;
-    while(cursor->next != NULL)
-    {
-        cursor = cursor->next;
+    { /* iterate to the last and then create a new node */
+        for (node *itr = head; NULL != itr; itr = itr->next)
+        {
+            if (NULL == itr->next)
+            { // found
+                itr->next = create(data, NULL);
+                break;
+            }
+        }
     }
 
-    /* create a new node */
-    node* new_node =  create(data, NULL);
-    cursor->next = new_node;
-
-    return head;
+    return head; // return head; the previous head is still the head
 }
 
 /*
  * insert a new node after the prev node
  */
-node* insert_after(node *head, int data, node* prev)
+node* insert_after(node * const head, int const data, node* const prev)
 {
-    if(head == NULL || prev == NULL)
+    if (NULL == head || NULL == prev)
     {
-        return NULL;
-    }
-
-    /* find the prev node, starting from the first node*/
-    node *cursor = head;
-    while(cursor != prev)
-    {
-        cursor = cursor->next;
-    }
-
-    if(cursor != NULL)
-    {
-        node* new_node = create(data, cursor->next);
-        cursor->next = new_node;
         return head;
     }
-    else
-    {
-        return NULL;
+
+    { /* iterate to the prev node and then create a new node */
+        for (node *itr = head; NULL != itr; itr = itr->next)
+        {
+            if (prev == itr)
+            { // found
+                itr->next = create(data, itr->next);
+            }
+        }
     }
+
+    return head; // return head; the previous head is still the head
 }
 
 /*
  * insert a new node before the nxt node
  */
-node* insert_before(node *head, int data, node* nxt)
+node* insert_before(node * const head, int const data, node* const nxt)
 {
-    if(nxt == NULL || head == NULL)
+    if (NULL == head || NULL == nxt)
     {
-        return NULL;
-    }
-
-    if(head == nxt)
-    {
-        head = prepend(head, data);
         return head;
     }
 
-    /* find the prev node, starting from the first node*/
-    node *cursor = head;
-    while(cursor != NULL)
-    {
-        if(cursor->next == nxt)
+    if (head == nxt)
+    { // This new node is to become the new head of the linked list
+        return prepend(head, data);
+    }
+
+    { /* iterate to the nxt node and then create a new node */
+        for (node *itr = head; NULL != itr; itr = itr->next)
         {
-            break;
+            if (nxt == itr->next)
+            { // found
+                itr->next = create(data, itr->next);
+                break;
+            }
         }
-        cursor = cursor->next;
     }
 
-    if(cursor != NULL)
-    {
-        node* new_node = create(data, cursor->next);
-        cursor->next = new_node;
-        return head;
-    }
-    else
-    {
-        return NULL;
-    }
+    return head; // return head; the previous head is still the head
 }
 
 /*
  * traverse the linked list
  */
-void traverse(node* head, callback f)
+void traverse(node* const head, callback const f)
 {
-    node* cursor = head;
-    while(cursor != NULL)
+    for (node *itr = head; NULL != itr; itr = itr->next)
     {
-        f(cursor);
-        cursor = cursor->next;
+        f(itr);
     }
 }
 
@@ -176,16 +147,16 @@ void traverse(node* head, callback f)
  */
 node* remove_front(node* head)
 {
-    if(head == NULL)
+    if (head == NULL)
     {
-        return NULL;
+        return head;
     }
 
     node *front = head;
     head = head->next;
     front->next = NULL;
     /* is this the last node in the list */
-    if(front == head)
+    if (front == head)
     {
         head = NULL;
     }
@@ -200,7 +171,7 @@ node* remove_back(node* head)
 {
     if(head == NULL)
     {
-        return NULL;
+        return head;
     }
 
     node *cursor = head;
@@ -273,7 +244,7 @@ node* remove_any(node* head, node* nd)
  */
 void display(node* const n)
 {
-    if(n != NULL)
+    if (NULL != n)
     {
         printf("%d ", n->data);
     }
@@ -287,14 +258,14 @@ void display(node* const n)
  */
 node* search(node* const head, int const data)
 {
-
-    node *cursor = head;
-    while(cursor!=NULL)
+    for (node *itr = head; NULL != itr; itr = itr->next)
     {
-        if(cursor->data == data)
-            return cursor;
-        cursor = cursor->next;
+        if (data == itr->data)
+        {
+            return itr;
+        }
     }
+
     return NULL;
 }
 
@@ -305,10 +276,9 @@ void dispose(node *head)
 {
     while (NULL != head)
     {
-        printf("size = %d\n", count(head));
         head = remove_front(head);
     }
-    printf("size = %d\n", count(head));
+    // printf("size = %d\n", count(head));
 }
 
 /*
@@ -399,7 +369,7 @@ int ll_main()
     int data;
 
     node* head = NULL;
-    node* tmp = NULL;
+    node* nd   = NULL;
     callback disp = display;
 
 
@@ -409,8 +379,11 @@ int ll_main()
         printf("\nEnter a command(0-10,-1 to quit):");
         scanf("%d", &command);
 
-        if(command == -1)
+        if (command == -1)
+        {
             break;
+        }
+
         switch(command)
         {
             case 0:
@@ -431,8 +404,8 @@ int ll_main()
             case 3:
                 printf("Please enter a number to search:");
                 scanf("%d", &data);
-                tmp = search(head, data);
-                if(tmp != NULL)
+                nd = search(head, data);
+                if(nd != NULL)
                 {
                     printf("Element with value %d found.", data);
                 }
@@ -444,12 +417,12 @@ int ll_main()
             case 4:
                 printf("Enter the element value where you want to insert after:");
                 scanf("%d", &data);
-                tmp = search(head, data);
-                if(tmp != NULL)
+                nd = search(head, data);
+                if(nd != NULL)
                 {
                     printf("Enter the element value to insert after:");
                     scanf("%d", &data);
-                    head = insert_after(head, data, tmp);
+                    head = insert_after(head, data, nd);
                     if(head != NULL)
                         traverse(head, disp);
                 }
@@ -461,12 +434,12 @@ int ll_main()
             case 5:
                 printf("Enter the element value where you want to insert before:");
                 scanf("%d", &data);
-                tmp = search(head, data);
-                if(tmp != NULL)
+                nd = search(head, data);
+                if(nd != NULL)
                 {
                     printf("Enter the element value to insert before:");
                     scanf("%d", &data);
-                    head = insert_before(head, data, tmp);
+                    head = insert_before(head, data, nd);
 
                     if(head != NULL)
                         traverse(head, disp);
@@ -489,10 +462,10 @@ int ll_main()
             case 8:
                 printf("Enter the element value to remove:");
                 scanf("%d", &data);
-                tmp = search(head, data);
-                if(tmp != NULL)
+                nd = search(head, data);
+                if(nd != NULL)
                 {
-                    remove_any(head, tmp);
+                    remove_any(head, nd);
                     if(head != NULL)
                         traverse(head, disp);
                 }
@@ -512,7 +485,6 @@ int ll_main()
                     traverse(head, disp);
                 break;
         }
-
     }
     dispose(head);
     return 0;
