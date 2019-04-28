@@ -145,23 +145,21 @@ void traverse(node* const head, callback const f)
  * remove node from the front of list
  * release the memory
  */
-node* remove_front(node* head)
+node* remove_front(node *const head)
 {
-    if (head == NULL)
+    if (NULL == head)
     {
         return head;
     }
 
-    node *front = head;
-    head = head->next;
-    front->next = NULL;
-    /* is this the last node in the list */
-    if (front == head)
-    {
-        head = NULL;
-    }
-    free(front);
-    return head;
+    // will become the new head of the link list
+    node *const new_head = head->next;
+
+    // clean up the current head node for freeing
+    head->next = NULL;
+    free(head);
+
+    return new_head;
 }
 
 /*
@@ -169,31 +167,33 @@ node* remove_front(node* head)
  */
 node* remove_back(node* head)
 {
-    if(head == NULL)
+    if (NULL == head)
     {
         return head;
     }
 
-    node *cursor = head;
-    node *back = NULL;
-    while(cursor->next != NULL)
+    node *new_tail = NULL;
+    node *itr = NULL;
+    for (itr = head; NULL != itr; itr = itr->next)
     {
-        back = cursor;
-        cursor = cursor->next;
+        if (NULL == itr->next)
+        { // found
+            break;
+        }
+        new_tail = itr;
     }
 
-    if(back != NULL)
-    {
-        back->next = NULL;
+    if (NULL != new_tail)
+    { // mark as tail node in the link list
+        new_tail->next = NULL;
     }
-
-    /* if this is the last node in the list*/
-    if(cursor == head)
-    {
+    else
+    { // head is the only node in link list
+        // clean up the current head node for freeing
         head = NULL;
     }
-    free(cursor);
 
+    free(itr);
     return head;
 }
 
@@ -358,6 +358,8 @@ void menu()
     printf("8.remove any node\n");
     printf("9.sort the list\n");
     printf("10.Reverse the linked list\n");
+    printf("11.Display the linked list\n");
+    printf("12.Display nodes in the linked list\n");
     printf("-1.quit\n");
 
 }
@@ -465,7 +467,7 @@ int ll_main()
                 nd = search(head, data);
                 if(nd != NULL)
                 {
-                    remove_any(head, nd);
+                    head = remove_any(head, nd);
                     if(head != NULL)
                         traverse(head, disp);
                 }
@@ -483,6 +485,12 @@ int ll_main()
                 head = reverse(head);
                 if(head != NULL)
                     traverse(head, disp);
+                break;
+            case 11:
+                traverse(head, disp);
+                break;
+            case 12:
+                printf("Total nodes: %d.", count(head));
                 break;
         }
     }
