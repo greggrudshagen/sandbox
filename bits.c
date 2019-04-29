@@ -6,9 +6,8 @@
 int BitsSetCount(unsigned int v)
 {
     int rc = 0; // total set bits in value
-    for ( ; v != 0; )
+    for ( ; v != 0; (v &= (v - 1)))
     {
-        v &= (v - 1);
         rc++;
     }
     return rc;

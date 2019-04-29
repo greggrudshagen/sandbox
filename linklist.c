@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "linklist.h"
+#include "random.h"
 
 typedef struct node
 {
@@ -76,6 +78,22 @@ node* append(node* const head, int data)
     }
 
     return head; // return head; the previous head is still the head
+}
+
+/*
+ * add elements to the linked list
+ */
+node* append_elements(node* head, int const cnt)
+{
+    int const minimum = 0;
+    int const maximum = 1000;
+
+    for (int i = cnt; i > 0; --i)
+    {
+        head = append(head, random_range(minimum, maximum));
+    }
+
+    return head;
 }
 
 /*
@@ -274,7 +292,7 @@ void display_node_parameters(node* const nd)
 {
     if (NULL != nd)
     {
-        printf("node @ %p, node->data %d, node->next %p\n", nd, nd->data, nd->next);
+        printf("node @ %p, node->data %4d, node->next %p\n", nd, nd->data, nd->next);
     }
 }
 
@@ -315,41 +333,6 @@ void dispose(node *head)
  */
 node* insertion_sort(node* head)
 {
-#if 0
-    node *x = head; //, *y;//, *e;
-
-    //x = head;
-    head = NULL;
-
-    while(x != NULL)
-    {
-        node *e = x;
-        x = x->next;
-        if (head != NULL)
-        {
-            if(e->data > head->data)
-            {
-                node *y = head;
-                while ((y->next != NULL) && (e->data > y->next->data))
-                {
-                    y = y->next;
-                }
-                e->next = y->next;
-                y->next = e;
-            }
-            else
-            {
-                e->next = head;
-                head = e ;
-            }
-        }
-        else
-        {
-            e->next = NULL;
-            head = e ;
-        }
-    }
-#else
     node * const x = head;
     head = NULL;
 
@@ -386,7 +369,7 @@ node* insertion_sort(node* head)
             head = e ;
         }
     }
-#endif
+
     return head;
 }
 
@@ -406,6 +389,7 @@ node* reverse(node* const head)
     // prev is now the new head
     return prev;
 }
+
 
 /*
  * display the menu
@@ -428,6 +412,7 @@ void menu()
     printf("12.display the list\n");
     printf("13.count nodes in the list\n");
     printf("14.display the node's parameters\n");
+    printf("15.append elements to the list\n");
     printf("-1.quit\n");
 }
 
@@ -445,7 +430,7 @@ int ll_main()
     menu();
     while(1)
     {
-        printf("\nEnter a command(0-10,-1 to quit):");
+        printf("\nEnter a command(0-14,-1 to quit):");
         scanf("%d", &command);
 
         if (command == -1)
@@ -474,7 +459,7 @@ int ll_main()
                 printf("Please enter a number to search:");
                 scanf("%d", &data);
                 nd = search(head, data);
-                if(nd != NULL)
+                if (NULL != nd)
                 {
                     printf("Element with value %d found.", data);
                 }
@@ -487,13 +472,12 @@ int ll_main()
                 printf("Enter the element value where you want to insert after:");
                 scanf("%d", &data);
                 nd = search(head, data);
-                if(nd != NULL)
+                if (NULL != nd)
                 {
                     printf("Enter the element value to insert after:");
                     scanf("%d", &data);
                     head = insert_after(head, data, nd);
-                    if(head != NULL)
-                        traverse(head, disp);
+                    traverse(head, disp);
                 }
                 else
                 {
@@ -504,14 +488,12 @@ int ll_main()
                 printf("Enter the element value where you want to insert before:");
                 scanf("%d", &data);
                 nd = search(head, data);
-                if(nd != NULL)
+                if (NULL != nd)
                 {
                     printf("Enter the element value to insert before:");
                     scanf("%d", &data);
                     head = insert_before(head, data, nd);
-
-                    if(head != NULL)
-                        traverse(head, disp);
+                    traverse(head, disp);
                 }
                 else
                 {
@@ -520,17 +502,11 @@ int ll_main()
                 break;
             case 6:
                 head = remove_front(head);
-                if (NULL != head)
-                {
-                    traverse(head, disp);
-                }
+                traverse(head, disp);
                 break;
             case 7:
                 head = remove_back(head);
-                if (NULL != head)
-                {
-                    traverse(head, disp);
-                }
+                traverse(head, disp);
                 break;
             case 8:
                 printf("Enter the element value to remove:");
@@ -539,10 +515,7 @@ int ll_main()
                 if (NULL != nd)
                 {
                     head = remove_any(head, nd);
-                    if (NULL != head)
-                    {
-                        traverse(head, disp);
-                    }
+                    traverse(head, disp);
                 }
                 else
                 {
@@ -554,17 +527,11 @@ int ll_main()
                 break;
             case 10:
                 head = insertion_sort(head);
-                if (NULL != head)
-                {
-                    traverse(head, disp);
-                }
+                traverse(head, disp);
                 break;
             case 11:
                 head = reverse(head);
-                if (NULL != head)
-                {
-                    traverse(head, disp);
-                }
+                traverse(head, disp);
                 break;
             case 12:
                 traverse(head, disp);
@@ -577,6 +544,12 @@ int ll_main()
                 disp = display_node_parameters;
                 traverse(head, disp);
                 disp = display_default;
+                break;
+            case 15:
+                printf("Enter number of elements to append to the list:");
+                scanf("%d", &data);
+                head = append_elements(head, data);
+                traverse(head, disp);
                 break;
         }
     }

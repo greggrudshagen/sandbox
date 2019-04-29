@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 #include "arrarys.h"
+#include "random.h"
 
 int main_arrays()
 {
@@ -97,19 +97,9 @@ void sortArraryMinToMax(int arr[], int const size)
     }
 } // sortArraryMinToMax
 
-int random_range(int const maximum, int const minimum)
-{
-    int const rc = (rand() % (maximum + 1 - minimum)) + minimum;
-    return rc;
-}
-
 int one_dimensional_variable_length()
 {
     printf("%s\n", __FUNCTION__);
-
-    /* Intializes random number generator */
-    time_t t;
-    srand((unsigned) time(&t));
 
     int const max_num =  250;
     int const min_num = -250;
@@ -119,7 +109,7 @@ int one_dimensional_variable_length()
 
     for(int i = 0; i < size; ++i)
     {
-        pv[i] = random_range(max_num, min_num);
+        pv[i] = random_range(min_num, max_num);
     }
 
     //displayArrary(pv, size);
