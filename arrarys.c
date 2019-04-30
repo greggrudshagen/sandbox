@@ -25,7 +25,7 @@ int one_dimensional()
 {
     int vector[5] = {1, 2, 3, 4, 5};
 
-    printf("%s: %d\n", __FUNCTION__, sizeof(vector)/sizeof(int));
+    printf("%s: %ld\n", __FUNCTION__, sizeof(vector)/sizeof(int));
 
     displayArrary(vector, sizeof(vector)/sizeof(int));
     return 0;
@@ -39,7 +39,7 @@ int two_dimensional()
 
     for (int i = 0; i < 0; ++i)
     {
-        printf("%s: &matrix[%d]: %p sizeof(matrix[%d]): %d\n", __FUNCTION__,
+        printf("%s: &matrix[%d]: %p sizeof(matrix[%d]): %ld\n", __FUNCTION__,
                i, &matrix[i], i,  sizeof(matrix[i]));
     }
 

@@ -1,6 +1,13 @@
 # ignore all .out files
 *.out
 
+# ignore object files
+*.o
+
+# ignore emacs backup files
 *~
 
 
+
+# ignore the gdr executable
+gdr

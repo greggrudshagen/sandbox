@@ -15,6 +15,8 @@ int BitsSetCount(unsigned int v)
 
 int BitsMain(void)
 {
+    int const rc = 0;
+    
     unsigned int n;
     while(1)
     {
@@ -26,6 +28,8 @@ int BitsMain(void)
         }
         printf("Binary of %d(0x%08X) has %d set bits.\n", n, n, BitsSetCount(n));
     }
+
+    return rc;
 }
 
 // EOF
