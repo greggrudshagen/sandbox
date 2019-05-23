@@ -1,9 +1,9 @@
+#include <linklist.h>
+
+#include <random.h>
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
-
-#include "linklist.h"
-#include "random.h"
 
 typedef struct node
 {

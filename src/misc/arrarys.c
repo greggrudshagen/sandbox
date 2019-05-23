@@ -1,8 +1,9 @@
+#include <arrarys.h>
+
+#include <random.h>
+
 #include <stdio.h>
 #include <stdlib.h>
-
-#include "arrarys.h"
-#include "random.h"
 
 int main_arrays()
 {

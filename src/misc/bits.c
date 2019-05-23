@@ -1,7 +1,6 @@
-#include <stdio.h>
-#include <string.h>
+#include <bits.h>
 
-#include "bits.h"
+#include <stdio.h>
 
 int BitsSetCount(unsigned int v)
 {

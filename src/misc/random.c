@@ -1,8 +1,8 @@
+#include <random.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
-#include "random.h"
 
 static void random_number_generator(void);
 

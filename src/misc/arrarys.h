@@ -1,5 +1,5 @@
-#ifndef _ARRARYS_H_
-#define _ARRARYS_H_
+#ifndef ARRARYS_H
+#define ARRARYS_H
 
 
 extern int main_arrays();
@@ -14,4 +14,4 @@ int one_dimensional_variable_length();
 
 void displayArrary(int arr[], int size);
 
-#endif /*_ARRARYS_H_*/
+#endif /* ARRARYS_H */

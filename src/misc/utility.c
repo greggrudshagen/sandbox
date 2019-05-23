@@ -1,8 +1,5 @@
-#include <stdio.h>
-#include <string.h>
-
-//#include "utility.h"
 #include <utility.h>
+
 
 int IsEven(unsigned int const v)
 {

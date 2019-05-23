@@ -1,8 +1,8 @@
-#ifndef _BITS_H_
-#define _BITS_H_
+#ifndef BITS_H
+#define BITS_H
 
 
 extern int BitsSetCount(unsigned int);
 
 extern int BitsMain(void);
-#endif /*_BITS_H_*/
+#endif /* BITS_H */
