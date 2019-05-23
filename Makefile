@@ -1,35 +1,42 @@
-# Source, Executable, Includes, Library Defines
-FSM_SRC = fsm_main.c fsm_init.c fsm_north.c fsm_east.c fsm_south.c fsm_west.c
-LL_SRC  = linklist.c
-INCL    = 
-SRC     = main.c arrarys.c bits.c random.c utility.c $(FSM_SRC) $(LL_SRC)
-OBJ     = $(SRC:.c=.o)
-LIBS    =
-EXE     = gdr
-
 # Compiler, Linker Defines
-CC      = /usr/bin/gcc
-CFLAGS = -std=c99 -Wall -O2 -I.
-LIBPATH = -L.
-LDFLAGS = -o $(EXE) $(LIBPATH) $(LIBS)
-CFDEBUG = -std=c99 -Wall -g -DDEBUG $(LDFLAGS)
-RM      = /bin/rm -f
+CC      := /usr/bin/gcc
+LD      := /usr/bin/gcc
+CFLAGS  := -std=c99 -Wall -O2 -I.
+LIBPATH := -L.
+LDFLAGS := -o $(EXE) $(LIBPATH) $(LIBS)
+CFDEBUG := -std=c99 -Wall -g -DDEBUG $(LDFLAGS)
 
-# Compile and Assemble C Source Files into Object Files
-%.o: %.c
-	$(CC) -c $(CFLAGS) $*.c
 
-# Link all Object Files with external Libraries into Binaries
-$(EXE): $(OBJ)
-	$(CC) $(LDFLAGS) $(OBJ)
+MODULES   := finite_state_machine main misc 
+SRC_DIR   := $(addprefix src/,$(MODULES))
+BUILD_DIR := $(addprefix build/,$(MODULES))
 
-# Objects depend on these Libraries
-$(OBJ): $(INCL)
 
-# Create a gdb/dbx Capable Executable with DEBUG flags turned on
-debug:
-	$(CC) $(CFDEBUG) $(SRC)
+SRC       := $(foreach sdir,$(SRC_DIR),$(wildcard $(sdir)/*.c))
+OBJ       := $(patsubst src/%.c,build/%.o,$(SRC))
+INCLUDES  := $(addprefix -I,$(SRC_DIR))
 
-# Clean Up Objects, Exectuables, Dumps out of source directory
+vpath %.c $(SRC_DIR)
+
+define make-goal
+$1/%.o: %.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c $$< -o $$@
+endef
+
+.PHONY: all checkdirs clean
+
+all: checkdirs build/test
+
+build/test: $(OBJ)
+	$(LD) $^ -o $@
+
+
+checkdirs: $(BUILD_DIR)
+
+$(BUILD_DIR):
+	@mkdir -p $@
+
 clean:
-	$(RM) $(OBJ) $(EXE) core a.out
+	@rm -rf $(BUILD_DIR)
+
+$(foreach bdir,$(BUILD_DIR),$(eval $(call make-goal,$(bdir))))
