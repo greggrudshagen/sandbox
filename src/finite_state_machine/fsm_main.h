@@ -1,9 +1,9 @@
-#ifndef _FSM_MAIN_H_
-#define _FSM_MAIN_H_
+#ifndef FSM_MAIN_H
+#define FSM_MAIN_H
 
 
 extern int fsm_main();
 
 
 
-#endif /*_FSM_MAIN_H_*/
+#endif /* FSM_MAIN_H */

@@ -1,8 +1,7 @@
+#include <fsm_cmn.h>
+#include <fsm_east.h>
+
 #include <stdio.h>
-
-#include "fsm_cmn.h"
-#include "fsm_east.h"
-
 
 
 void *EastState(int state)

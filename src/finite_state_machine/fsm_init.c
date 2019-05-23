@@ -1,8 +1,7 @@
+#include <fsm_cmn.h>
+#include <fsm_init.h>
+
 #include <stdio.h>
-
-#include "fsm_cmn.h"
-#include "fsm_init.h"
-
 
 
 void *InitState(int state)

@@ -1,8 +1,8 @@
-#ifndef _FSM_WEST_H_
-#define _FSM_WEST_H_
+#ifndef FSM_WEST_H
+#define FSM_WEST_H
 
 
 
 
 
-#endif /*_FSM_WEST_H_*/
+#endif /* FSM_WEST_H */

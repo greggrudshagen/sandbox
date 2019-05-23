@@ -1,9 +1,9 @@
-#ifndef _FSM_NORTH_H_
-#define _FSM_NORTH_H_
+#ifndef FSM_NORTH_H
+#define FSM_NORTH_H
 
 
 extern void *NorthState(int state);
 
 
 
-#endif /*_FSM_NORTH_H_*/
+#endif /* FSM_NORTH_H */

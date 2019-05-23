@@ -1,8 +1,8 @@
-#ifndef _FSM_INIT_H_
-#define _FSM_INIT_H_
+#ifndef FSM_INIT_H
+#define FSM_INIT_H
 
 
 
 
 
-#endif /*_FSM_INIT_H_*/
+#endif /* FSM_INIT_H */

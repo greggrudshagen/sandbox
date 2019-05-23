@@ -1,8 +1,7 @@
+#include <fsm_cmn.h>
+#include <fsm_west.h>
+
 #include <stdio.h>
-
-#include "fsm_cmn.h"
-#include "fsm_west.h"
-
 
 
 void *WestState(int state)

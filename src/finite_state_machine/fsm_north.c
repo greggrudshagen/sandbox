@@ -1,7 +1,8 @@
+#include <fsm_cmn.h>
+#include <fsm_north.h>
+
 #include <stdio.h>
 
-#include "fsm_cmn.h"
-#include "fsm_north.h"
 
 static int north_state_cnt = 2;
 

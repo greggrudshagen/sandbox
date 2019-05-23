@@ -1,5 +1,5 @@
-#ifndef _FSM_CMN_H_
-#define _FSM_CMN_H_
+#ifndef FSM_CMN_H
+#define FSM_CMN_H
 
 extern void *InitState(int state);
 extern void *NorthState(int state);
@@ -18,4 +18,4 @@ extern int const FSM_STATE_LAST; // always last
 
 
 
-#endif /*_FSM_CMN_H_ */
+#endif /* FSM_CMN_H */

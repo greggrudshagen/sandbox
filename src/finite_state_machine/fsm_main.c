@@ -1,14 +1,14 @@
+#include <fsm_main.h>
+#include <fsm_cmn.h>
+#include <fsm_north.h>
+#include <fsm_south.h>
+#include <fsm_east.h>
+#include <fsm_west.h>
+#include <fsm_init.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 
-
-#include "fsm_main.h"
-#include "fsm_cmn.h"
-#include "fsm_north.h"
-#include "fsm_south.h"
-#include "fsm_east.h"
-#include "fsm_west.h"
-#include "fsm_init.h"
 
 
 int North(int state);

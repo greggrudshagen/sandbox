@@ -1,12 +1,11 @@
+#include <arrarys.h>
+#include <fsm_main.h>
+#include <bits.h>
+#include <linklist.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
-#include "arrarys.h"
-#include "fsm_main.h"
-#include "bits.h"
-#include "linklist.h"
-
 
 int main(int argc, char *argv[])
 {
