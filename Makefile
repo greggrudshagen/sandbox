@@ -8,14 +8,14 @@ CFDEBUG := -std=c99 -Wall -g -DDEBUG $(LDFLAGS)
 
 
 # All the subdirs that contain source files to be compiled
-MODULES   := finite_state_machine main misc 
-SRC_DIR   := $(addprefix src/,$(MODULES))
-BUILD_DIR := $(addprefix build/,$(MODULES))
-BIN_DIR   := bin
+MODULES := finite_state_machine main misc 
+SRC_DIR := $(addprefix src/,$(MODULES))
+OBJ_DIR := $(addprefix obj/,$(MODULES))
+BIN_DIR := bin
 
-SRC       := $(foreach sdir,$(SRC_DIR),$(wildcard $(sdir)/*.c))
-OBJ       := $(patsubst src/%.c,build/%.o,$(SRC))
-INCLUDES  := $(addprefix -I,$(SRC_DIR))
+SRC      := $(foreach sdir,$(SRC_DIR),$(wildcard $(sdir)/*.c))
+OBJ      := $(patsubst src/%.c,obj/%.o,$(SRC))
+INCLUDES := $(addprefix -I,$(SRC_DIR))
 
 vpath %.c $(SRC_DIR)
 
@@ -32,15 +32,15 @@ $(BIN_DIR)/test: $(OBJ)
 	$(LD) $^ -o $@
 
 
-checkdirs: $(BUILD_DIR) $(BIN_DIR)
+checkdirs: $(OBJ_DIR) $(BIN_DIR)
 
-$(BUILD_DIR):
+$(OBJ_DIR):
 	@mkdir -p $@
 
 $(BIN_DIR):
 	@mkdir -p $@
 
 clean:
-	@rm -rf $(BUILD_DIR)
+	@rm -rf $(OBJ_DIR)
 
-$(foreach bdir,$(BUILD_DIR),$(eval $(call make-goal,$(bdir))))
+$(foreach objdir,$(OBJ_DIR),$(eval $(call make-goal,$(objdir))))
