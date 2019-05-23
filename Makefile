@@ -11,7 +11,7 @@ CFDEBUG := -std=c99 -Wall -g -DDEBUG $(LDFLAGS)
 MODULES   := finite_state_machine main misc 
 SRC_DIR   := $(addprefix src/,$(MODULES))
 BUILD_DIR := $(addprefix build/,$(MODULES))
-
+BIN_DIR   := bin
 
 SRC       := $(foreach sdir,$(SRC_DIR),$(wildcard $(sdir)/*.c))
 OBJ       := $(patsubst src/%.c,build/%.o,$(SRC))
@@ -26,15 +26,18 @@ endef
 
 .PHONY: all checkdirs clean
 
-all: checkdirs build/test
+all: checkdirs $(BIN_DIR)/test
 
-build/test: $(OBJ)
+$(BIN_DIR)/test: $(OBJ)
 	$(LD) $^ -o $@
 
 
-checkdirs: $(BUILD_DIR)
+checkdirs: $(BUILD_DIR) $(BIN_DIR)
 
 $(BUILD_DIR):
+	@mkdir -p $@
+
+$(BIN_DIR):
 	@mkdir -p $@
 
 clean:
