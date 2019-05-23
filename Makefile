@@ -2,14 +2,14 @@
 FSM_SRC = fsm_main.c fsm_init.c fsm_north.c fsm_east.c fsm_south.c fsm_west.c
 LL_SRC  = linklist.c
 INCL    = 
-SRC     = main.c arrarys.c bits.c random.c $(FSM_SRC) $(LL_SRC)
+SRC     = main.c arrarys.c bits.c random.c utility.c $(FSM_SRC) $(LL_SRC)
 OBJ     = $(SRC:.c=.o)
 LIBS    =
 EXE     = gdr
 
 # Compiler, Linker Defines
 CC      = /usr/bin/gcc
-CFLAGS = -std=c99 -Wall -O2 
+CFLAGS = -std=c99 -Wall -O2 -I.
 LIBPATH = -L.
 LDFLAGS = -o $(EXE) $(LIBPATH) $(LIBS)
 CFDEBUG = -std=c99 -Wall -g -DDEBUG $(LDFLAGS)

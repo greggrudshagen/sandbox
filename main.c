@@ -43,19 +43,17 @@ int main(int argc, char *argv[])
     }
 #endif
 
+
 #if 0 /* ARRAYS */
     main_arrays();
-#endif
 
-#if 0 /* Finite State Machine */
+#elif 0 /* Finite State Machine */
     fsm_main();
-#endif
 
-#if 0
+#elif 0
     rc = BitsMain();
-#endif
 
-#if 1
+#elif 1
     rc = linklist_main();
 #endif
 

@@ -16,10 +16,11 @@ int BitsSetCount(unsigned int v)
 int BitsMain(void)
 {
     int const rc = 0;
-    
-    unsigned int n;
+
     while(1)
     {
+        unsigned int n;
+
         printf("Enter a positive non-zero integer: ");
         scanf("%u", &n);
         if (0 == n)
