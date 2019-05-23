@@ -1,12 +1,13 @@
 # Compiler, Linker Defines
 CC      := /usr/bin/gcc
 LD      := /usr/bin/gcc
-CFLAGS  := -std=c99 -Wall -O2 -I.
+CFLAGS  := -std=c99 -Wall -O2
 LIBPATH := -L.
 LDFLAGS := -o $(EXE) $(LIBPATH) $(LIBS)
 CFDEBUG := -std=c99 -Wall -g -DDEBUG $(LDFLAGS)
 
 
+# All the subdirs that contain source files to be compiled
 MODULES   := finite_state_machine main misc 
 SRC_DIR   := $(addprefix src/,$(MODULES))
 BUILD_DIR := $(addprefix build/,$(MODULES))
