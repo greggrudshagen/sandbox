@@ -9,7 +9,7 @@
 
 
 # ignore build directory
-build
+bin
 
 
 # ignore the gdr executable
