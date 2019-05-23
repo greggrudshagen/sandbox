@@ -8,6 +8,9 @@
 *~
 
 
+# ignore build directory
+build
+
 
 # ignore the gdr executable
 gdr
