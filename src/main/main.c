@@ -1,7 +1,8 @@
 #include <arrarys.h>
-#include <fsm_main.h>
 #include <bits.h>
+#include <fsm_main.h>
 #include <linklist.h>
+#include <utility.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -46,14 +47,17 @@ int main(int argc, char *argv[])
 #if 0 /* ARRAYS */
     main_arrays();
 
+#elif 0
+    rc = BitsMain();
+
 #elif 0 /* Finite State Machine */
     fsm_main();
 
 #elif 0
-    rc = BitsMain();
+    rc = linklist_main();
 
 #elif 1
-    rc = linklist_main();
+    rc = utility_main();
 #endif
 
     return rc;

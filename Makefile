@@ -7,7 +7,8 @@ LDFLAGS := -o $(EXE) $(LIBPATH) $(LIBS)
 CFDEBUG := -std=c99 -Wall -g -DDEBUG $(LDFLAGS)
 
 
-# All the subdirs that contain source files to be compiled
+# All the subdirs that contain source files to be compiled.
+# The obj subdirs will match the src layout.
 MODULES := finite_state_machine main misc 
 SRC_DIR := $(addprefix src/,$(MODULES))
 OBJ_DIR := $(addprefix obj/,$(MODULES))
