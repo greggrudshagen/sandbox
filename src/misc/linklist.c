@@ -8,18 +8,56 @@
 typedef struct node
 {
     struct node* next;
-    int data;
+    int32_t data;
 } node;
 
 typedef void (*callback)(node* nd);
 
 
+static int32_t count(node * const head);
+static node* create(int32_t const data, node* const next);
+static node* prepend(node* head, int32_t data);
+static node* append(node* const head, int32_t data);
+static node* append_elements(node* head, int32_t const cnt);
+static node* insert_after(node * const head, int32_t const data, node* const prev);
+static node* insert_before(node * const head, int32_t const data, node* const nxt);
+static node* insertion_sort(node* head);
+static node* remove_front(node *const head);
+static node* remove_back(node* head);
+static node* remove_any(node* const head, node* const nd);
+static node* remove_all(node* head);
+static node* search(node* const head, int32_t const data);
+static node* reverse(node* const head);
+static void dispose(node *head);
+static void traverse(node* const head, callback const f);
+static void display_node_data(node* const n);
+static void display_node_parameters(node* const nd);
+static void menu();
+static int32_t ll_main();
+
+
+int32_t linklist_main()
+{
+    int32_t rc = 0;
+    printf("%s\n", __FUNCTION__);
+
+#if 1
+    rc = ll_main();
+#elif 0
+
+#else
+
+#endif
+    return rc;
+}
+
+
 /*
  * return the number of elements in the list
  */
-int count(node * const head)
+static int32_t count(node * const head)
 {
-    int c = 0;
+    int32_t c = 0;
     for (node *itr = head; NULL != itr; itr = itr->next)
     {
         c++;
@@ -34,7 +72,7 @@ int count(node * const head)
  *
  * return the newly created node
  */
-node* create(int const data, node* const next)
+static node* create(int32_t const data, node* const next)
 {
     node* const new_node = (node*)malloc(sizeof(node));
     if (NULL == new_node)
@@ -51,7 +89,7 @@ node* create(int const data, node* const next)
 /*
  * add a new node at the beginning of the list
  */
-node* prepend(node* head, int data)
+static node* prepend(node* head, int32_t data)
 {
     return create(data, head);
 }
@@ -59,7 +97,7 @@ node* prepend(node* head, int data)
 /*
  *  add a new node at the end of the list
  */
-node* append(node* const head, int data)
+static node* append(node* const head, int32_t data)
 {
     if (NULL == head)
     {
@@ -83,12 +121,12 @@ node* append(node* const head, int data)
 /*
  * add elements to the linked list
  */
-node* append_elements(node* head, int const cnt)
+static node* append_elements(node* head, int32_t const cnt)
 {
-    int const minimum = 0;
-    int const maximum = 1000;
+    int32_t const minimum = 0;
+    int32_t const maximum = 1000;
 
-    for (int i = cnt; i > 0; --i)
+    for (int32_t i = cnt; i > 0; --i)
     {
         head = append(head, random_range(minimum, maximum));
     }
@@ -99,7 +137,7 @@ node* append_elements(node* head, int const cnt)
 /*
  * insert a new node after the prev node
  */
-node* insert_after(node * const head, int const data, node* const prev)
+static node* insert_after(node * const head, int32_t const data, node* const prev)
 {
     if (NULL == head || NULL == prev)
     {
@@ -122,7 +160,7 @@ node* insert_after(node * const head, int const data, node* const prev)
 /*
  * insert a new node before the nxt node
  */
-node* insert_before(node * const head, int const data, node* const nxt)
+static node* insert_before(node * const head, int32_t const data, node* const nxt)
 {
     if (NULL == head || NULL == nxt)
     {
@@ -151,7 +189,7 @@ node* insert_before(node * const head, int const data, node* const nxt)
 /*
  * traverse the linked list
  */
-void traverse(node* const head, callback const f)
+static void traverse(node* const head, callback const f)
 {
     for (node *itr = head; NULL != itr; itr = itr->next)
     {
@@ -163,7 +201,7 @@ void traverse(node* const head, callback const f)
  * remove node from the front of list
  * release the memory
  */
-node* remove_front(node *const head)
+static node* remove_front(node *const head)
 {
     if (NULL == head)
     {
@@ -183,7 +221,7 @@ node* remove_front(node *const head)
 /*
  * remove node from the back of the list
  */
-node* remove_back(node* head)
+static node* remove_back(node* head)
 {
     if (NULL == head)
     {
@@ -218,7 +256,7 @@ node* remove_back(node* head)
 /*
  * remove a node from the list
  */
-node* remove_any(node* const head, node* const nd)
+static node* remove_any(node* const head, node* const nd)
 {
     if (NULL == head || NULL == nd)
     {
@@ -263,7 +301,7 @@ node* remove_any(node* const head, node* const nd)
 /*
  * remove all nodes from the list
  */
-node* remove_all(node* head)
+static node* remove_all(node* head)
 {
     node *itr = NULL;
     for (itr = head; NULL != itr; itr = remove_front(itr))
@@ -277,7 +315,7 @@ node* remove_all(node* head)
 /*
  * display a node
  */
-void display_node_data(node* const n)
+static void display_node_data(node* const n)
 {
     if (NULL != n)
     {
@@ -288,7 +326,7 @@ void display_node_data(node* const n)
 /*
  * display a node's parameters
  */
-void display_node_parameters(node* const nd)
+static void display_node_parameters(node* const nd)
 {
     if (NULL != nd)
     {
@@ -302,7 +340,7 @@ void display_node_parameters(node* const nd)
  * return the first matched node that stores the input data,
  * otherwise return NULL
  */
-node* search(node* const head, int const data)
+static node* search(node* const head, int32_t const data)
 {
     for (node *itr = head; NULL != itr; itr = itr->next)
     {
@@ -318,7 +356,7 @@ node* search(node* const head, int const data)
 /*
  * clean up routine before exiting.
  */
-void dispose(node *head)
+static void dispose(node *head)
 {
     node * const nd = remove_all(head);
     if (NULL != nd)
@@ -331,7 +369,7 @@ void dispose(node *head)
 /*
  * sort the linked list using insertion sort
  */
-node* insertion_sort(node* head)
+static node* insertion_sort(node* head)
 {
     node * const x = head;
     head = NULL;
@@ -376,7 +414,7 @@ node* insertion_sort(node* head)
 /*
  * reverse the linked list
  */
-node* reverse(node* const head)
+static node* reverse(node* const head)
 {
     node* prev = NULL;
     node* next = NULL;
@@ -394,7 +432,7 @@ node* reverse(node* const head)
 /*
  * display the menu
  */
-void menu()
+static void menu()
 {
     printf("--- C Linked List Demonstration --- \n\n");
     printf("0.menu\n");
@@ -416,10 +454,10 @@ void menu()
     printf("-1.quit\n");
 }
 
-int ll_main()
+static int32_t ll_main()
 {
-    int command = 0;
-    int data;
+    int32_t command = 0;
+    int32_t data;
 
     node* head = NULL;
     node* nd   = NULL;
@@ -558,20 +596,5 @@ int ll_main()
 }
 
 
-
-int linklist_main()
-{
-    int rc = 0;
-    printf("%s\n", __FUNCTION__);
-
-#if 1
-    rc = ll_main();
-#elif 0
-
-#else
-
-#endif
-    return rc;
-}
 
 // EOF

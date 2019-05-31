@@ -5,60 +5,56 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main_arrays()
+
+
+static int32_t one_dimensional();
+static int32_t two_dimensional();
+
+static int32_t one_dimensional_malloc();
+
+static int32_t one_dimensional_variable_length();
+
+static void displayArrary(int32_t arr[], int32_t size);
+
+
+
+static int32_t one_dimensional()
 {
-    int rc = 0;
-#if 0
-    rc = one_dimensional();
-#elif 0
-    rc = one_dimensional_malloc();
-#elif 0
-    rc = two_dimensional();
-#elif 1
-    rc = one_dimensional_variable_length();
-#else
+    int32_t vector[5] = {1, 2, 3, 4, 5};
 
-#endif
-    return rc;
-}
+    printf("%s: %ld\n", __FUNCTION__, sizeof(vector)/sizeof(int32_t));
 
-int one_dimensional()
-{
-    int vector[5] = {1, 2, 3, 4, 5};
-
-    printf("%s: %ld\n", __FUNCTION__, sizeof(vector)/sizeof(int));
-
-    displayArrary(vector, sizeof(vector)/sizeof(int));
+    displayArrary(vector, sizeof(vector)/sizeof(int32_t));
     return 0;
 }
 
-int two_dimensional()
+int32_t two_dimensional()
 {
-    int matrix[2][3] = {{1, 2, 3},{4, 5,6}};
+    int32_t matrix[2][3] = {{1, 2, 3},{4, 5,6}};
 
     printf("%s\n", __FUNCTION__);
 
-    for (int i = 0; i < 0; ++i)
+    for (int32_t i = 0; i < 0; ++i)
     {
         printf("%s: &matrix[%d]: %p sizeof(matrix[%d]): %ld\n", __FUNCTION__,
                i, &matrix[i], i,  sizeof(matrix[i]));
     }
 
-    for (int i = 0; i < 2; ++i)
+    for (int32_t i = 0; i < 2; ++i)
     {
-        displayArrary(matrix[i], sizeof(matrix[i])/sizeof(int));
+        displayArrary(matrix[i], sizeof(matrix[i])/sizeof(int32_t));
     }
 
     return 0;
 }
 
-int one_dimensional_malloc()
+int32_t one_dimensional_malloc()
 {
     printf("%s\n", __FUNCTION__);
 
-    int const size = 5;
-    int *pv = (int*) malloc(size * sizeof(int));
-    for(int i = 0; i < size; ++i)
+    int32_t const size = 5;
+    int32_t *pv = (int32_t*) malloc(size * sizeof(int32_t));
+    for(int32_t i = 0; i < size; ++i)
     {
         pv[i] = i + 1;
     }
@@ -70,27 +66,27 @@ int one_dimensional_malloc()
 }
 
 
-void displayArrary(int arr[], int size)
+void displayArrary(int32_t arr[], int32_t size)
 {
     printf("%s\n", __FUNCTION__);
 
-    for(int i = 0; i < size; ++i)
+    for(int32_t i = 0; i < size; ++i)
     {
         printf("idx %d = %d\n", i, arr[i]);
     }
 }
 
-void sortArraryMinToMax(int arr[], int const size)
+void sortArraryMinToMax(int32_t arr[], int32_t const size)
 {
     printf("%s\n", __FUNCTION__);
 
-    for(int i = 0; i < size; ++i)
+    for(int32_t i = 0; i < size; ++i)
     {
-        for(int j = 0; j < size - 1; ++j)
+        for(int32_t j = 0; j < size - 1; ++j)
         {
             if (arr[j] > arr[j + 1])
             {
-                int temp = arr[j];
+                int32_t temp = arr[j];
                 arr[j] = arr[j + 1];
                 arr[j + 1] = temp;
             }
@@ -98,17 +94,17 @@ void sortArraryMinToMax(int arr[], int const size)
     }
 } // sortArraryMinToMax
 
-int one_dimensional_variable_length()
+int32_t one_dimensional_variable_length()
 {
     printf("%s\n", __FUNCTION__);
 
-    int const max_num =  250;
-    int const min_num = -250;
-    int const size = 100 * 1;
+    int32_t const max_num =  250;
+    int32_t const min_num = -250;
+    int32_t const size = 100 * 1;
 
-    int * const pv = (int*) malloc(size * sizeof(int)); // remember to free
+    int32_t * const pv = (int32_t*) malloc(size * sizeof(int32_t)); // remember to free
 
-    for(int i = 0; i < size; ++i)
+    for(int32_t i = 0; i < size; ++i)
     {
         pv[i] = random_range(min_num, max_num);
     }
@@ -117,12 +113,12 @@ int one_dimensional_variable_length()
     sortArraryMinToMax(pv, size);
     // displayArrary(pv, size);
 
-    int min_value = 1; // default
+    int32_t min_value = 1; // default
     {
-        int idx = 0;
+        int32_t idx = 0;
 
         // Find first non-negative number
-        for(int i = 0; i < size; ++i)
+        for(int32_t i = 0; i < size; ++i)
         {
             if (pv[i] >= 0)
             {
@@ -138,7 +134,7 @@ int one_dimensional_variable_length()
         printf("\n");
         printf("idx %d = %d\n", idx, pv[idx]);
 
-        for (int j = idx; j < size; ++j)
+        for (int32_t j = idx; j < size; ++j)
         {
             if (j == idx)
             { // check the first location
@@ -148,8 +144,8 @@ int one_dimensional_variable_length()
                 }
             }
 
-            int current = pv[j];
-            int next    = pv[j+1];
+            int32_t current = pv[j];
+            int32_t next    = pv[j+1];
             if ((current == next) ||
                 (current == (next - 1)))
             {
@@ -166,6 +162,36 @@ int one_dimensional_variable_length()
 
     printf("value is %d\n", min_value);
     return 0;
+}
+
+int32_t arrays_main()
+{
+    int32_t rc = 0;
+    if (0)
+    {
+        ; // do nothing
+    }
+    else if (0)
+    {
+        rc = one_dimensional();
+    }
+    else if (0)
+    {
+        rc = one_dimensional_malloc();
+    }
+    else if (0)
+    {
+        rc = two_dimensional();
+    }
+    else if (1)
+    {
+        rc = one_dimensional_variable_length();
+    }
+    else
+    {
+    }
+
+    return rc;
 }
 
 // EOF

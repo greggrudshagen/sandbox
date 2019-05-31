@@ -1,24 +1,24 @@
 #include <bits.h>
+#include <utility.h>
 
 #include <stdio.h>
 
-int BitsSetCount(unsigned int v)
+
+static int32_t BitsSetCount(uint32_t);
+
+
+int32_t BitsSetCount(uint32_t const v)
 {
-    int rc = 0; // total set bits in value
-    for ( ; v != 0; (v &= (v - 1)))
-    {
-        rc++;
-    }
-    return rc;
+    return bits_set_count(v);
 }
 
-int BitsMain(void)
+int32_t BitsMain(void)
 {
-    int const rc = 0;
+    int32_t const rc = 0;
 
     while(1)
     {
-        unsigned int n;
+        uint32_t n;
 
         printf("Enter a positive non-zero integer: ");
         scanf("%u", &n);

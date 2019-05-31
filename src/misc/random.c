@@ -6,7 +6,7 @@
 
 static void random_number_generator(void);
 
-static int seed_init = 0;
+static int32_t seed_init = 0;
 
 static void random_number_generator(void)
 {
@@ -15,14 +15,14 @@ static void random_number_generator(void)
     seed_init = 1;
 }
 
-int random_range(int const minimum, int const maximum)
+int32_t random_range(int32_t const minimum, int32_t const maximum)
 {
     if (0 == seed_init)
     {
         random_number_generator();
     }
 
-    int const rc = (rand() % (maximum + 1 - minimum)) + minimum;
+    int32_t const rc = (rand() % (maximum + 1 - minimum)) + minimum;
     return rc;
 }
 

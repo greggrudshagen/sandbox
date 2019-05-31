@@ -2,7 +2,7 @@
 #define FSM_NORTH_H
 
 
-extern void *NorthState(int state);
+extern void *NorthState(int32_t state);
 
 
 

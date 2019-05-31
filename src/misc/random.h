@@ -1,7 +1,9 @@
 #ifndef RANDOM_H
 #define RANDOM_H
 
-extern int random_range(int const maximum, int const minimum);
+#include <stdc_version.h>
+
+extern int32_t random_range(int32_t const maximum, int32_t const minimum);
 
 
 #endif // RANDOM_H

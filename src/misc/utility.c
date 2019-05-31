@@ -45,6 +45,16 @@ int32_t b_to_the_nth(int32_t const base, uint32_t const nth)
     return(b_to_the_nth(base*base, nth/2) * base);
 }
 
+int32_t bits_set_count(uint32_t v)
+{
+    int32_t rc = 0; // total set bits in value
+    for ( ; v != 0; (v &= (v - 1)))
+    {
+        rc++;
+    }
+    return rc;
+}
+
 int32_t utility_main()
 {
     int32_t rc = 0;

@@ -1,8 +1,8 @@
 #ifndef BITS_H
 #define BITS_H
 
+#include <stdc_version.h>
 
-extern int BitsSetCount(unsigned int);
 
-extern int BitsMain(void);
+extern int32_t BitsMain(void);
 #endif /* BITS_H */
