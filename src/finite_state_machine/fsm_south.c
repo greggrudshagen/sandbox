@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 
-void *SouthState(int state)
+void *SouthState(int32_t state)
 {
     printf("%s:state %d\n", __FUNCTION__, state);
 

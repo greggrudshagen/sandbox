@@ -4,9 +4,9 @@
 #include <stdio.h>
 
 
-static int north_state_cnt = 2;
+static int32_t north_state_cnt = 2;
 
-void *NorthState(int state)
+void *NorthState(int32_t state)
 {
     printf("%s:state %d\n", __FUNCTION__, state);
     if (north_state_cnt != 0)
