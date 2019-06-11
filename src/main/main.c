@@ -14,7 +14,7 @@ int32_t main(int32_t argc, char *argv[])
 {
     int32_t rc = 0;
 #if 1
-    printf("%s %s\n", __DATE__, __TIME__);
+    printf("%s[%d]:%s %s\n", __FUNCTION__, __LINE__, __DATE__, __TIME__);
 #endif
 
 #if 0
@@ -58,7 +58,7 @@ int32_t main(int32_t argc, char *argv[])
     {
         rc = BitsMain();
     }
-    else if (1)
+    else if (0)
     {
         rc = fsm_main();
     }
