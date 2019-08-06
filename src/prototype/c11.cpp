@@ -20,21 +20,90 @@ class FizzBuzz
             
         }
         
-        int Walk()
+        int ByMask()
         {
-        
-            return 0;
-        }
-        
-        int Display()
-        {
+            std::cout << ClassName() << "::" << __FUNCTION__ << ":[" << __LINE__ << "]" << std::endl;
+
+            int const rc = 0;   
+            for (int i = begin; i < end; i++)
+            {
+                uint32_t mask = 0;
+
+                mask |= ((i % 3) == 0 ? 0x01 : 0x0);
+                mask |= ((i % 5) == 0 ? 0x02 : 0x0);
+
+                switch (mask)
+                {
+                    case 0:
+                        std::cout << "i = " << i << std::endl;
+                        break;
+                    case 1:
+                        std::cout << FizzName() << std::endl;
+                        break;
+                    case 2:
+                        std::cout << BuzzName() << std::endl;
+                        break;
+                    case 3:
+                        std::cout << FizzName() << BuzzName() << std::endl;
+                        break;
+                    default:
+                        break;
+                } // switch
+            } // for
             
             return 0;
-        }
+        } // ByMask
+
+        int ByString()
+        {
+            std::cout << ClassName() << "::" << __FUNCTION__ << ":[" << __LINE__ << "]" << std::endl;
+
+            int const rc = 0;   
+            std::ostringstream oss;
+            for (int i = begin; i < end; i++)
+            {
+                oss.str(""); // empty string
+                oss.clear(); // reset error flags
+                
+                if (i % 3 == 0)
+                {
+                    oss << FizzName();
+                }
+                if (i % 5 == 0)
+                {
+                    oss << BuzzName();
+                }
+                if (oss.str().empty())
+                {
+                   oss << "i = " << i; 
+                }
+                
+                std::cout << oss.str() << std::endl; 
+            } // for
+            
+            return 0;
+        } // ByString
+
     protected:
+
     private:
-        int begin;
-        int end;
+        char const * FizzName() const
+        {
+            return "Fizz";
+        }
+
+        char const * BuzzName() const
+        {
+            return "Buzz";
+        }
+
+        char const * ClassName() const
+        {
+            return "FizzBuzz";
+        }
+
+        int const begin;
+        int const end;
 };
 
 class Object
@@ -64,8 +133,6 @@ class Object
 }; // Object
 
 
-int FizzBuzz(int const begin, int const end);
-
 int main()
 {
     std::cout << "Hello World" << std::endl;
@@ -90,44 +157,23 @@ int main()
     }
 
     { // Fizz Buzz routine
-        int const rc = FizzBuzz(1, 16);
-        if (rc != 0)
         {
-            std::cout << "FizzBuzz Error!" << std::endl;
+            FizzBuzz fb(1, 16);
+            fb.ByString();
         }
-    } // Fizz Buzz routine
+
+        {
+            std::unique_ptr<FizzBuzz> fb(new FizzBuzz(1, 16));
+            fb->ByMask();
+        }
+#if 0
+        { // C++14
+            auto fb = std::make_unique<FizzBuzz>(1, 16);
+            fb->ByString();
+        }
+#endif
+    }
+
 
     return 0;
 } // main
-
-
-
-int FizzBuzz(int const begin, int const end)
-{
-    std::cout << __FUNCTION__ << ":" << __LINE__ << std::endl;
- 
-    int const rc = 0;   
-    std::ostringstream oss;
-    for (int i = begin; i < end; i++)
-    {
-        oss.str(""); // empty string
-        oss.clear(); // reset error flags
-        
-        if (i % 3 == 0)
-        {
-            oss << "Fizz";
-        }
-        if (i % 5 == 0)
-        {
-            oss << "Buzz";
-        }
-        if (oss.str().empty())
-        {
-           oss << "i = " << i; 
-        }
-        
-        std::cout << oss.str() << std::endl; 
-    } // for
-    
-    return rc;
-}
