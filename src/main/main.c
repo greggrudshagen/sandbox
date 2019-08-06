@@ -3,6 +3,7 @@
 #include <arrarys.h>
 #include <bits.h>
 #include <fsm_main.h>
+#include <fizzbuzz.h>
 #include <linklist.h>
 #include <utility.h>
 
@@ -61,6 +62,10 @@ int32_t main(int32_t argc, char *argv[])
     else if (0)
     {
         rc = fsm_main();
+    }
+    else if (1)
+    {
+        rc = fizzbuzz_main();
     }
     else if (0)
     {

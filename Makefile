@@ -9,7 +9,7 @@ CFDEBUG := -std=c99 -Wall -g -DDEBUG $(LDFLAGS)
 
 # All the subdirs that contain source files to be compiled.
 # The obj subdirs will match the src layout.
-MODULES := finite_state_machine linklist main misc 
+MODULES := finite_state_machine fizzbuzz linklist main misc 
 SRC_DIR := $(addprefix src/,$(MODULES))
 OBJ_DIR := $(addprefix obj/,$(MODULES))
 BIN_DIR := bin
