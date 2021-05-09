@@ -15,35 +15,41 @@ Write your code in this editor and press "Run" button to compile and execute it.
 class FizzBuzz
 {
     public:
-        FizzBuzz(int const start, int const finish) : begin(start), end(finish)
+        FizzBuzz(int32_t const start, int32_t const finish) : begin(start), end(finish)
         {
             
         }
         
-        int ByMask()
+        int32_t ByMask()
         {
             std::cout << ClassName() << "::" << __FUNCTION__ << ":[" << __LINE__ << "]" << std::endl;
 
-            int const rc = 0;   
-            for (int i = begin; i < end; i++)
+            int32_t const rc = 0;
+
+            uint32_t const NONE     = 0;
+            uint32_t const FIZZ     = 1;
+            uint32_t const BUZZ     = 2;
+            uint32_t const FIZZBUZZ = 3;
+
+            for (int32_t i = begin; i < end; i++)
             {
                 uint32_t mask = 0;
 
-                mask |= ((i % 3) == 0 ? 0x01 : 0x0);
-                mask |= ((i % 5) == 0 ? 0x02 : 0x0);
+                mask |= ((i % 3) == 0 ? FIZZ : 0x0);
+                mask |= ((i % 5) == 0 ? BUZZ : 0x0);
 
                 switch (mask)
                 {
-                    case 0:
+                    case NONE:
                         std::cout << "i = " << i << std::endl;
                         break;
-                    case 1:
+                    case FIZZ:
                         std::cout << FizzName() << std::endl;
                         break;
-                    case 2:
+                    case BUZZ:
                         std::cout << BuzzName() << std::endl;
                         break;
-                    case 3:
+                    case FIZZBUZZ:
                         std::cout << FizzName() << BuzzName() << std::endl;
                         break;
                     default:
@@ -51,16 +57,16 @@ class FizzBuzz
                 } // switch
             } // for
             
-            return 0;
+            return rc;
         } // ByMask
 
-        int ByString()
+        int32_t ByString()
         {
             std::cout << ClassName() << "::" << __FUNCTION__ << ":[" << __LINE__ << "]" << std::endl;
 
-            int const rc = 0;   
+            int32_t const rc = 0;
             std::ostringstream oss;
-            for (int i = begin; i < end; i++)
+            for (int32_t i = begin; i < end; i++)
             {
                 oss.str(""); // empty string
                 oss.clear(); // reset error flags
@@ -81,7 +87,7 @@ class FizzBuzz
                 std::cout << oss.str() << std::endl; 
             } // for
             
-            return 0;
+            return rc;
         } // ByString
 
     protected:
@@ -102,9 +108,9 @@ class FizzBuzz
             return "FizzBuzz";
         }
 
-        int const begin;
-        int const end;
-};
+        int32_t const begin;
+        int32_t const end;
+}; // FizzBuzz
 
 class Object
 {
@@ -124,7 +130,7 @@ class Object
     protected:
 
     private:
-        static const int sec_per_min = 60;
+        static const int32_t sec_per_min = 60;
 
         std::string hello;
 
@@ -132,8 +138,24 @@ class Object
         //Object& operator=(Object const&);     // Disable Assignment operator
 }; // Object
 
+void PassByPointer( FizzBuzz *fb)
+{
+    std::cout << __FUNCTION__ << ":[" << __LINE__ << "]" << std::endl;
 
-int main()
+    fb->ByMask();
+    std::cout << __FUNCTION__ << ":[" << __LINE__ << "]" << std::endl;
+}
+
+void PassByReference( FizzBuzz &fb)
+{
+    std::cout << __FUNCTION__ << ":[" << __LINE__ << "]" << std::endl;
+
+    fb.ByString();
+    std::cout << __FUNCTION__ << ":[" << __LINE__ << "]" << std::endl;
+}
+
+
+int32_t main()
 {
     std::cout << "Hello World" << std::endl;
 
@@ -166,14 +188,18 @@ int main()
             std::unique_ptr<FizzBuzz> fb(new FizzBuzz(1, 16));
             fb->ByMask();
         }
-#if 0
+#if 1
         { // C++14
+            std::cout << "C++14" << std::endl;
             auto fb = std::make_unique<FizzBuzz>(1, 16);
             fb->ByString();
+            if (fb.get())
+            {
+                PassByPointer(fb.get());    // pass raw pointer to object FizzBuzz.
+                PassByReference(*fb.get()); // pass raw reference to object FizzBuzz.
+            }
         }
 #endif
     }
-
-
     return 0;
 } // main
